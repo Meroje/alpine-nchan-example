@@ -1,0 +1,32 @@
+<input type="text" id=in>
+<pre><code id=out></code></pre>
+
+<script src='/NchanSubscriber.js'></script>
+<script>
+    (function() {
+        'use strict';
+
+        document.getElementById('out').innerText = '';
+        document.getElementById('in').addEventListener('keydown', function(e) {
+            if (e.keyIdentifier !== 'Enter') return true;
+
+            const headers = new Headers();
+            headers.append('Accept', 'text/json');
+
+            const body = e.target.value;
+            e.target.value = '';
+
+            fetch(new Request('/pub', { method: 'POST', body, headers }));
+        });
+
+        const sub = new NchanSubscriber('/sub', {});
+
+        sub.on("message", function(message, message_metadata) {
+            // message is a string
+            // message_metadata may contain 'id' and 'content-type'
+            document.getElementById('out').innerText += `${message_metadata.id}: ${message}\n`;
+        });
+
+        sub.start();
+    }).apply(this)
+</script>
