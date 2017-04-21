@@ -8,7 +8,7 @@
 
         document.getElementById('out').innerText = '';
         document.getElementById('in').addEventListener('keydown', function(e) {
-            if (e.keyIdentifier !== 'Enter') return true;
+            if (e.key !== 'Enter') return true;
 
             const headers = new Headers();
             headers.append('Accept', 'text/json');
