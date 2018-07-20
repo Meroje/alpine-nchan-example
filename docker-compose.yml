@@ -8,7 +8,7 @@ services:
     depends_on:
      - redis-master
   redis-master:
-    image: redis:2.8.23@sha256:e507029ca6a11b85f8628ff16d7ff73ae54582f16fd757e64431f5ca6d27a13c
+    image: redis
     ports:
      - "6379:6379"
   redis-slave:
